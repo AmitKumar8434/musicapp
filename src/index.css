@@ -1,13 +1,206 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans+SC:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans+SC:wght@100&family=Josefin+Sans:wght@100&display=swap');
+*{
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Encode Sans SC', sans-serif;
+  font-family: 'Josefin Sans', sans-serif;
+}
+.container{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.container::after {
+  -webkit-backdrop-filter: blur(15px); /* Use for Safari 9+, Edge 17+ (not a mistake) and iOS Safari 9.2+ */
+  backdrop-filter: blur(15px); /* Supported in Chrome 76 */
+
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%; height: 100%;
+  top: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+.player{
+  position: relative;
+  z-index: 1;
+  margin-top: 30px;
+  width: 300px;
+  max-width: 600px;
+  height: 500px;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 20px;
+  box-shadow: 0px 0px 20px rgb(2, 10, 37);
 }
+.player_details{
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+img{
+  width: 100%;
+  height:100%;
+  animation: spin 6s linear infinite;
+  /* box-shadow: 0px 0px 20px rgb(2, 10, 37); */
+}
+@keyframes spin { 
+  from { 
+      transform: rotate(0deg); 
+  } to { 
+      transform: rotate(360deg); 
+  }
+}
+.image_details{
+  /* display: flex; */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  overflow: hidden;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  box-shadow: 0px 0px 20px rgb(2, 10, 37);
+  /* background-size: cover; */
+  /* padding: 10px; */
+}
+.details_title{
+  margin-top: 20px;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.playing{
+  margin-top: 10px;
+  font-family: 'Encode Sans SC', sans-serif;
+
+}
+.footer{
+  margin-bottom: 30px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: row;
+  font-weight: 600;
+  color: rgb(24, 112, 71);
+}
+.player_controls{
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.skip_btn{
+  /* background-color: blue; */
+  font-size: 1rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: 20px;
+  margin-right: 20px;
+  color: rgb(0, 0, 0);
+}
+.play_btn{
+  background: transparent;
+  border: none;
+  font-size: 2.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  /* color: green; */
+  color: rgb(0, 0, 0);
+}
+.progress {
+  width: 90%;
+  position: relative;
+  display: flex;
+  height: 0.5rem;
+  transition: height 0.3s;
+  background: rgb(247, 228, 228);
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.progress__filled {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  background: #000000;
+  flex: 0;
+  height: 100%;
+  border-radius: 10px;
+}
+.duration{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background: white; */
+  width: 90%;
+}
+.duration div{
+  color: rgb(0, 0, 0);
+  font-weight: 600;
+  font-size: smaller;
+}
+.button{
+  text-shadow: 0px 0px 20px rgb(2, 10, 37);
+
+}
+strong{
+  color: black;
+  font-weight: bold;
+}
+/* 
+.playlist{
+  background-color: rgb(13, 114, 202);
+  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+  background: brown;
+  box-shadow: 0px 0px 20px rgb(2, 10, 37);
+  border-radius: 20px;
+} */
+/* .container{
+  -webkit-transition: 0.6s;
+	-webkit-transform-style: preserve-3d;
+  transition: 0.6s;
+  transform-style: preserve-3d;
+	position: relative;
+  border-radius: 20px;
+} */
+/* .player .playlist{
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+} */
+/* .player{
+  backface-visibility: hidden;
+} */
+/* .flip{
+  -webkit-perspective: 1000;
+  perspective: 1000;
+  background: #ccc;
+  width: 300px;
+  height: 90vh;
+  border-radius: 20px;
+
+}
+.player{
+  z-index: 2;
+} */
+
+/* .flip:active .container, .flip.active .container  {
+  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+} */
