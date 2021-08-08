@@ -2,42 +2,38 @@ import React, { useEffect,useRef } from 'react';
 import { useState} from 'react';
 import PlayerDetails from './PlayerDetails';
 import PlayerControls from './PlayerControls';
-
+import { useSpring, animated } from "react-spring";
+import { songs } from "./songs";
 const Player = () => {
+	const [registrationFormStatus, setRegistartionFormStatus] = useState(false);
+
+    const loadSong=(key)=>{
+		setCurrSongIndex((old) => {
+				return key;
+		});
+	}
+	
+	const loginProps = useSpring({ 
+		left: registrationFormStatus ? -500 : 0, // Login form sliding positions
+	  });
+	  const registerProps = useSpring({
+		left: registrationFormStatus ? 0 : 500, // Register form sliding positions 
+	  });
+	  function registerClicked() {
+		setRegistartionFormStatus(true);
+	  }
+	  function loginClicked() {
+		setRegistartionFormStatus(false);
+	}
+	const styles = {
+        border: "1px solid Black",
+		color: "Black",
+		fontWeight: 900,
+		fontSize:"15px",
+    }
+
 	const audioEl = useRef(null);
 	const prodiv = useRef(null);
-	const [songs] = useState([
-		{
-			title: "Zinda",
-			artist: "Siddharth Mahadevan",
-			img_src: "./images/zinda.jpg",
-			src: "./songs/Zinda.mp3",
-		},
-		{
-			title: "Wishlist",
-			artist: "Dino James",
-			img_src: "./images/wishlist.jpg",
-			src: "./songs/Wishlist.mp3",
-		},
-		{
-			title: "Kar Har Maidan Fateh",
-			artist: "Sukhvindar Singh",
-			img_src: "./images/karHarMaidanFateh.jpg",
-			src: "./songs/KarHarMaidaanFateh.mp3",
-		},
-		{
-			title: "Akela",
-			artist: "Abhijeet Srivastava",
-			img_src: "./images/akela.jpg",
-			src: "./songs/Akela.mp3",
-		},
-		{
-			title: "Toh aa Gye Hum",
-			artist: "Jubin Nautiyal",
-			img_src: "./images/jubin1.jpg",
-			src: "./songs/TohAagayeHum.mp3",
-		}
-	]);
 	const [currSongIndex, setCurrSongIndex] = useState(0);
 	const [nextSongIndex, setNextSongIndex] = useState(currSongIndex+1 );
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -64,13 +60,14 @@ const Player = () => {
 			  return currSongIndex + 1;
 			}
 		  });
-	}, [currSongIndex,songs.length]);
+	}, [currSongIndex]);
 	
 	const skipNext = (basis) => {
 
 		if (basis === true) {
 			setCurrSongIndex((old) => {
-				if (old === 4) return 0;
+				console.log(old);
+				if (old === songs.length-1) return 0;
 				return old + 1;
 			});
 		}
@@ -110,13 +107,29 @@ const Player = () => {
 		const scrubTime = (e.nativeEvent.offsetX / prodiv.current.offsetWidth) * audioEl.current.duration;
 		audioEl.current.currentTime = scrubTime;
 	}
-	
+
+
 	return (
 		<>
 			<div className="container" style={{
 				backgroundImage: `url(${songs[currSongIndex].img_src})`
 			}}>
-			<div className="player">
+		<div className="player-playlist">
+				<animated.button
+          onClick={loginClicked}
+			id="loginBtn"
+			style={styles}
+        >
+        Player
+        </animated.button>
+        <animated.button
+          onClick={registerClicked}
+		id="registerBtn"
+		style={styles}
+        >
+        Playlist
+        </animated.button>
+			<animated.div className="player" style={loginProps}>
 				<audio ref={audioEl} src={songs[currSongIndex].src} onTimeUpdate={handleProgress} />
 
 				<h4 className="playing">Playing Now</h4>
@@ -137,8 +150,24 @@ const Player = () => {
 				<PlayerControls onSelect={skipNext} isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
 
 				<p className="footer"><strong>Next up: </strong>{songs[nextSongIndex].title}</p>
-
-				</div>
+              
+				</animated.div>
+				<animated.div className="playlist" style={registerProps}>
+				<h2>PLAYLIST</h2><br/>
+                <hr/>
+                {
+                    songs.map((song ,key)=>{
+						return <div className="item" onClick={() => { loadSong(key) }} key={key}>
+                                    <img src={song.img_src} alt=""/>
+                                    <div className="item_details">
+                                        <h6>{song.title}</h6>
+                                        <h6>{song.artist}</h6>
+                                    </div>
+                                </div>
+                             })
+                }
+				</animated.div>
+					</div>
 				</div>
 
 		</>
