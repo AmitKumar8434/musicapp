@@ -12,7 +12,6 @@ const Player = () => {
 				return key;
 		});
 	}
-	
 	const loginProps = useSpring({ 
 		left: registrationFormStatus ? -500 : 0, // Login form sliding positions
 	  });
