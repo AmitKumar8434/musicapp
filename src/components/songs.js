@@ -2,7 +2,7 @@ export  const songs=[
     {
         title: "Zinda",
         artist: "Siddharth Mahadevan",
-        img_src: "./images/zinda.jpg",
+        img_src: "./images/zinda1.jpg",
         src: "./songs/Zinda.mp3",
     },
     {

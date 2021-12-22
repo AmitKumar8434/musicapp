@@ -111,7 +111,7 @@ const Player = () => {
 	return (
 		<>
 			<div className="container" style={{
-				backgroundImage: `url(${songs[currSongIndex].img_src})`
+				backgroundImage: `url(${songs[currSongIndex].img_src})`,
 			}}>
 		<div className="player-playlist">
 				<animated.button
