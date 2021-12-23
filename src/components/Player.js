@@ -49,7 +49,7 @@ const Player = () => {
 		}
 		else {
 			audioEl.current.pause();
-		}
+		}		  
 	},);
 	useEffect(() => {
 		setNextSongIndex(() => {
@@ -65,7 +65,6 @@ const Player = () => {
 
 		if (basis === true) {
 			setCurrSongIndex((old) => {
-				console.log(old);
 				if (old === songs.length-1) return 0;
 				return old + 1;
 			});
@@ -80,6 +79,10 @@ const Player = () => {
 
 	}
 	function handleProgress() {
+		if(audioEl.current.currentTime==audioEl.current.duration){
+			skipNext(true);
+			return;
+		}
 		setPercent(() => ((audioEl.current.currentTime / audioEl.current.duration) * 100));
 		let cTime = Math.floor(audioEl.current.currentTime);
 		let cm = Math.floor(cTime / 60);
